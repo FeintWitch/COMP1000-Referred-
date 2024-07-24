@@ -10,7 +10,7 @@ using namespace std;
 //See bottom of main
 int findArg(int argc, char* argv[], string pattern);
 
-
+///new comment
 /*
  *
  * The user can launch application as follows:
