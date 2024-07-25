@@ -1,2 +1,3 @@
 ﻿  TaskA.cpp
-  TaskA.vcxproj -> C:\Users\Super\Documents\GitHub\COMP1000-Referred-\referred-coursework-c1r-twennekers-main\tasks\TaskA\x64\Debug\TaskA.exe
+C:\Users\Super\Documents\GitHub\COMP1000-Referred-\referred-coursework-c1r-twennekers-main\tasks\TaskA\TaskA\TaskA.cpp(76,24): error C2065: 'fileName': undeclared identifier
+C:\Users\Super\Documents\GitHub\COMP1000-Referred-\referred-coursework-c1r-twennekers-main\tasks\TaskA\TaskA\TaskA.cpp(78,44): error C2065: 'fileName': undeclared identifier

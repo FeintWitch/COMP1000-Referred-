@@ -54,8 +54,11 @@ int main(int argc, char* argv[])
         cout << "TaskA (c)2024" << endl;
 
         //BASIC EXAMPLE: Get parameters for the simple case
-        string fileName(argv[1]);
-        string searchString(argv[2]);
+
+        //my research keeps saying this part is not right. 
+        string fileName= argv[1]; 
+        string searchString = argv[2];
+        bool useRegex = false;
 
         //Confirm
         cout << "TaskA " << fileName << " " << searchString << endl;
@@ -72,7 +75,20 @@ int main(int argc, char* argv[])
 
     //**************************************************************
     //You could continue here :)
+    // I think I am making progress little by little
+    // Let's start! first is the opening of the file
+    ifstream inputFile(fileName);
+    if (!inputFile) {
+        cerr << "Error: File not found" << fileName << endl;
+        return EXIT_FAILURE;
+    }   
     
+    //reads file cotents into a string
+    stringstream buffer;
+    buffer << inputFile.rdbuf();
+    string fileContent = buffer.str();
+
+
     // 
     //**************************************************************
 
