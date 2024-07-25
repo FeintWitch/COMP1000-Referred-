@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
         //BASIC EXAMPLE: Get parameters for the simple case
 
         //my research keeps saying this part is not right. 
-        string fileName= argv[1]; 
+        string fileName = argv[1];
         string searchString = argv[2];
         bool useRegex = false;
 
@@ -76,19 +76,42 @@ int main(int argc, char* argv[])
     //**************************************************************
     //You could continue here :)
     // I think I am making progress little by little
-    // Let's start! first is the opening of the file
+    // Let's start! first is the opening of the file. Task 1. 
     ifstream inputFile(fileName);
     if (!inputFile) {
         cerr << "Error: File not found" << fileName << endl;
         return EXIT_FAILURE;
-    }   
-    
+    }
     //reads file cotents into a string
     stringstream buffer;
     buffer << inputFile.rdbuf();
     string fileContent = buffer.str();
-
-
+    //displaying part 
+    cout << "content of " << fileName << "is:" << endl << fileContent << endl;
+    //searching 
+    if (useRegex) {
+        try {
+            regex searchPattern(SearchString);
+            smatch matches;
+            string::const_iterator searchStart(fileContent.cbegin());
+            while (regex_search(searchStart, fileContent.cend(), matches, searchPattern)) {
+                cout << "match found: " << matches[0] << endl;
+                searchStart = matches.suffix().first;
+            }
+        }
+        catch (regex_error& e) {
+            cerr << "error: Invaid expression: " << searchString << endl;
+            return EXIT_FAILURE;
+        }
+    }
+    else {
+        size_t pos = 0;
+        while ((pos = fileContent.find(searchString, pos)) != string::npos) {
+            cout << "match found at position: " << pos << endl;
+            pos += searchString.length();
+        }
+    
+}
     // 
     //**************************************************************
 
