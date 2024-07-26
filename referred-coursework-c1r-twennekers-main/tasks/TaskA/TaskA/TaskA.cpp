@@ -41,7 +41,8 @@ int findArg(int argc, char* argv[], string pattern);
  * o Consider error conditions, such as missing parameters or non-existent files
 */
 
-
+// I kept getting erros for fileName, searchString and useRegex. I think I am not doing it right. After looking online it's because it's in the if statement
+//I rewrote the start a little 
 int main(int argc, char* argv[])
 {
     // argv is an array of strings, where argv[0] is the path to the program, argv[1] is the first parameter, ...
@@ -76,6 +77,13 @@ int main(int argc, char* argv[])
     //**************************************************************
     //You could continue here :)
     // I think I am making progress little by little
+    string fileName = argv[1];
+    string searchString = argv[2];
+    bool useRegex = false;
+
+    if (findArg(argc, argv, "-regex")) {
+        useRegex = true;
+    }
     // Let's start! first is the opening of the file. Task 1. 
     ifstream inputFile(fileName);
     if (!inputFile) {
@@ -91,7 +99,7 @@ int main(int argc, char* argv[])
     //searching 
     if (useRegex) {
         try {
-            regex searchPattern(SearchString);
+            regex searchPattern(searchString);
             smatch matches;
             string::const_iterator searchStart(fileContent.cbegin());
             while (regex_search(searchStart, fileContent.cend(), matches, searchPattern)) {
@@ -110,8 +118,9 @@ int main(int argc, char* argv[])
             cout << "match found at position: " << pos << endl;
             pos += searchString.length();
         }
-    
-}
+
+    }
+
     // 
     //**************************************************************
 
