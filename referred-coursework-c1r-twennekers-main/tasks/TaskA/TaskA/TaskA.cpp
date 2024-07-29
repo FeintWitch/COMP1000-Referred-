@@ -61,6 +61,12 @@ int main(int argc, char* argv[])
         string searchString = argv[2];
         bool useRegex = false;
 
+        // FOR REGEX
+        if(findArg(argc, argv, "-regex")) {
+			useRegex = true;
+		}
+        //above checs
+
         //Confirm
         cout << "TaskA " << fileName << " " << searchString << endl;
 
@@ -77,6 +83,9 @@ int main(int argc, char* argv[])
     //**************************************************************
     //You could continue here :)
     // I think I am making progress little by little
+    /// Task A1 Done
+    // Task A2
+
     string fileName = argv[1];
     string searchString = argv[2];
     bool useRegex = false;
