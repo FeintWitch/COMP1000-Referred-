@@ -86,6 +86,8 @@ int main(int argc, char* argv[])
     /// Task A1 Done
     // Task A2
 
+    
+
     string fileName = argv[1];
     string searchString = argv[2];
     bool useRegex = false;
@@ -99,12 +101,24 @@ int main(int argc, char* argv[])
         cerr << "Error: File not found" << fileName << endl;
         return EXIT_FAILURE;
     }
+
+    // task a4
+    string line;
+    int lineNumber = 0;
+    int totalWords = 0;
+    int totalMatches = 0;
+    // 
     //reads file cotents into a string
     stringstream buffer;
     buffer << inputFile.rdbuf();
     string fileContent = buffer.str();
     //displaying part 
     cout << "content of " << fileName << "is:" << endl << fileContent << endl;
+
+    //task a3 //
+    string line;
+    int lineNumber = 0;
+    // 
     //searching 
     if (useRegex) {
         try {
@@ -129,6 +143,8 @@ int main(int argc, char* argv[])
         }
 
     }
+    //A4 this is now the calclation for a4
+
 
     // 
     //**************************************************************
@@ -146,4 +162,16 @@ int findArg(int argc, char* argv[], string pattern)
         }
     }
     return 0;
+}
+
+//task a3 Firstly this would split sting into words
+
+vector<string> split(const string& str) {
+    stingstream ss(str);
+    string word;
+    vector<string> words;
+    while (ss >> word) {
+        words.push_back(word);
+    }
+    return words;
 }
