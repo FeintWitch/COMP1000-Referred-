@@ -62,9 +62,9 @@ int main(int argc, char* argv[])
         bool useRegex = false;
 
         // FOR REGEX
-        if(findArg(argc, argv, "-regex")) {
-			useRegex = true;
-		}
+        if (findArg(argc, argv, "-regex")) {
+            useRegex = true;
+        }
         //above checs
 
         //Confirm
@@ -86,7 +86,7 @@ int main(int argc, char* argv[])
     /// Task A1 Done
     // Task A2
 
-    
+
 
     string fileName = argv[1];
     string searchString = argv[2];
@@ -108,6 +108,7 @@ int main(int argc, char* argv[])
     int totalWords = 0;
     int totalMatches = 0;
     // 
+    // 
     //reads file cotents into a string
     stringstream buffer;
     buffer << inputFile.rdbuf();
@@ -125,31 +126,82 @@ int main(int argc, char* argv[])
             regex searchPattern(searchString);
             smatch matches;
             string::const_iterator searchStart(fileContent.cbegin());
-            while (regex_search(searchStart, fileContent.cend(), matches, searchPattern)) {
-                cout << "match found: " << matches[0] << endl;
+
+            //code is edited now to fit current tasks I left the old to show new vs old
+            while (getline(inputFile, line)) {
+                ++lineNumber;
+                vector<string> words = split(line);
+                totalWords += words.size();
+                string::const_iterator searchStart(line.cbegin());
+                while (regex_search(searchStart, line.cend(), matches, searchPattern))
+                    size_t wordPos = line.find(matches[0]);
+                int wordNumber = count_if(words.begin(), words.end(), [wordPos, &line](const string& word) {
+                    return line.find(word) < wordPos;
+                    }) + 1;
+                cout << "match found: " << matches[0]
+                    << "(line: " << lineNumber << ", word: " << wordNumber << ")" << endl;
+                ++totalMatches;
                 searchStart = matches.suffix().first;
             }
         }
+        //old code 
+       // while (regex_search(searchStart, fileContent.cend(), matches, searchPattern)) {
+      //       cout << "match found: " << matches[0] << endl;
+      //       searchStart = matches.suffix().first;
+      //   }
+ //    }
         catch (regex_error& e) {
             cerr << "error: Invaid expression: " << searchString << endl;
             return EXIT_FAILURE;
         }
     }
     else {
-        size_t pos = 0;
-        while ((pos = fileContent.find(searchString, pos)) != string::npos) {
-            cout << "match found at position: " << pos << endl;
-            pos += searchString.length();
+        while (getline(inputFile, line)) {
+            ++lineNumber;
+            vector<string> words = split(line);
+            totalWords += words.size();
+
+            for (size_t i = 0; i < words.size(); ++i) {
+                if (words[i].find(searchString) != string::npos) {
+                    cout << "match found: " << words[i] << " (line: " << lineNumber << ", word: " << i + 1 << ")" << endl;
+                    ++totalMatches;
+                }
+
+            }
         }
+}
+        //  else {
+         //     size_t pos = 0;
+         //     while ((pos = fileContent.find(searchString, pos)) != string::npos) {
+          //        cout << "match found at position: " << pos << endl;
+           //       pos += searchString.length();
+            //  }
 
+         //}
+          //A4 this is now the calclation for a4
+        if (totalWords > 0) {
+        double percentage = (static_cast<double>(totalMatches) / totalWords) * 100;
+        cout << "total matches: " << totalMatches << " out of " << totalWords << " words (" << percentage << "%)" << endl;
     }
-    //A4 this is now the calclation for a4
-
+    else {
+        cout << "no words found in the file" << endl;
+    }
 
     // 
     //**************************************************************
 
     return EXIT_SUCCESS;
+}
+//task a3 Firstly this would split sting into words
+
+vector<string> split(const string& str) {
+    stingstream ss(str);
+    string word;
+    vector<string> words;
+    while (ss >> word) {
+        words.push_back(word);
+    }
+    return words;
 }
 
 // Find an argument on the command line and return the location
@@ -164,14 +216,14 @@ int findArg(int argc, char* argv[], string pattern)
     return 0;
 }
 
-//task a3 Firstly this would split sting into words
-
-vector<string> split(const string& str) {
-    stingstream ss(str);
-    string word;
-    vector<string> words;
-    while (ss >> word) {
-        words.push_back(word);
+//task a5
+void appendToCSV(const string& filename, const string& searchString, double frequency) {
+    ofstream outFile("results.csv", ios::app);
+    if (outFile.is_open()) {
+        outFile << fileName << "," << searchString << "," << frequency << "%" << endl;
+        outFile.close();
     }
-    return words;
+    else {
+        cerr << "error, unable to open for writing" << endl;
+    }
 }
