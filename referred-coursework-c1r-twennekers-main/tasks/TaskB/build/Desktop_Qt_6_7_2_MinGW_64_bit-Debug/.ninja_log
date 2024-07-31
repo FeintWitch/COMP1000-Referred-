@@ -1,0 +1,9 @@
+# ninja log v6
+12	1088	7441651247116153	TaskB_autogen/timestamp	4208ac9b4117af82
+12	1088	7441651247116153	TaskB_autogen/mocs_compilation.cpp	4208ac9b4117af82
+12	1088	7441651247116153	C:/Users/Super/Documents/GitHub/COMP1000-Referred-/referred-coursework-c1r-twennekers-main/tasks/TaskB/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/TaskB_autogen/timestamp	4208ac9b4117af82
+12	1088	7441651247116153	C:/Users/Super/Documents/GitHub/COMP1000-Referred-/referred-coursework-c1r-twennekers-main/tasks/TaskB/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/TaskB_autogen/mocs_compilation.cpp	4208ac9b4117af82
+1097	3442	7441651248563858	CMakeFiles/TaskB.dir/TaskB_autogen/mocs_compilation.cpp.obj	ae063df4693dfd78
+1109	3485	7441651248665636	CMakeFiles/TaskB.dir/main.cpp.obj	4791a7162701d1f
+1121	3840	7441651248825032	CMakeFiles/TaskB.dir/mainwindow.cpp.obj	48c2567b41c47b9b
+3841	4181	7441651276027771	TaskB.exe	4424d1b698426445
