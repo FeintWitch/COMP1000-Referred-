@@ -7,10 +7,50 @@
 #include <string>
 using namespace std;
 
+///****************
+/// task 6 is class liberalies 
+/// ****************
+class fileSearcher;
+class CSVLogger;
+
 //See bottom of main
 int findArg(int argc, char* argv[], string pattern);
-vector<string> split(const string& str);
-void appendToCSV(const string& fileName, const string& searchString, double frequency);
+
+//FileSearcher handles file reading and searching
+class FileSearcher {
+public:
+    fileSearcher(const string& fileName, const string& searchString, bool useRegex) : fileName(fileName), searchString(searchString), useRegex(useRegex) {}
+
+    void searchFile() {
+        ifstream inputFile(filename);
+        if (!inputFile) {
+            cerr << "Error: File not found" << fileName << endl;
+            return;
+        }
+
+        string line;
+        int lineNumber = 0;
+        while (getline(inputFile, line)) {
+            ++lineNumber;
+            totalWords += split(line).size();
+            if (useRegex) {
+                searchLineWithRegex(line, lineNumber);
+            }
+            else {
+                searchLine(line, lineNumber);
+
+            }
+        }
+    }
+
+    double getMatchPercentage() {
+        return(totalWords > 0) ? (static_cast<double>(totalMatches) / totalWords) * 100 : 0;
+    }
+    const string& getFileName() const { return fileName; }
+    const string& getSearchTerm() const { return searchString; }
+    int getTotalMatches() const { return totalMatches; }
+
+//****************
 
 ///new comment now checking
 /*
