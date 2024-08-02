@@ -50,6 +50,25 @@ public:
     const string& getSearchTerm() const { return searchString; }
     int getTotalMatches() const { return totalMatches; }
 
+    private:
+        string fileName;
+        string searchString;
+        bool useRegex;
+        int totalWords;
+        int totalMatches;
+
+        vector<string> split(const string& str) {
+            stringstream ss(str);
+            string word;
+            vector<string> words;
+            while (ss >> word) {
+                words.plush_back(word);
+            }
+            return words;
+        }
+
+        void searchLine(const string& line, int lineNumber){
+
 //****************
 
 ///new comment now checking
