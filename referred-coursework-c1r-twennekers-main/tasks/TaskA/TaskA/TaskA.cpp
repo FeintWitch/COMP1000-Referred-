@@ -77,7 +77,7 @@ public:
             }
         }
 
-        void searchLineWithRegex(const string& line, int lineNumber){
+        void searchLineWithRegex(const string& line, int lineNumber) {
             regex searchPattern(searchString);
             smatch matches;
             string::const_iterator searchStart(line.cbegin());
@@ -85,12 +85,39 @@ public:
             //STARTED PUTTING BELOW CODE HERE BECAUSE IT HELPS WITH MY EYES AND SEE WHAT I AM ACTUALLY DOING
             //AND MAKING SURE IT ORANGISED AND EASY TO READ
 
-            while (regex_search(searchStart, line.cend(), matches, searchPattern)){
+            while (regex_search(searchStart, line.cend(), matches, searchPattern)) {
                 size_t wordPos = line.find(matches[0]);
-            int wordNumber = count_if(words.begin(), words.end(), [wordPos, &line](const string& word) {
-                return line.find(word) < wordPos;
-                }) + 1;
-        
+                vector <string> words = split(line);
+                int wordNumber = count_if(words.begin(), words.end(), [wordPos, &line](const string& word) {
+                    return line.find(word) < wordPos;
+                    }) + 1;
+
+                cout << "match found: " << matches[0]
+                    << "(line: " << lineNumber << ", word: " << wordNumber << ")" << endl;
+                ++totalMatches;
+                searchStart = matches.suffix().first;
+            }
+        }
+        };
+            ///next class for a6 is csvlogger. This was done in a5, was at the bottom of the code. but I moved it here to make it easier to read
+
+		class CSVLogger {
+        public:
+            void appendToCSV(const string& filename, const string& searchString, double frequency) {
+                ofstream outFile("results.csv", ios::app);
+                if (outFile.is_open()) {
+                    outFile << fileName << "," << searchString << "," << frequency << "%" << endl;
+                    outFile.close();
+                }
+                else {
+                    cerr << "error, unable to open for writing" << endl;
+                }
+            }
+            };
+
+        //// next we are moving to the section which will be reworked
+
+
 
 //****************
 
@@ -127,37 +154,52 @@ public:
 
 // I kept getting erros for fileName, searchString and useRegex. I think I am not doing it right. After looking online it's because it's in the if statement
 //I rewrote the start a little 
-int main(int argc, char* argv[])
-{
-    // argv is an array of strings, where argv[0] is the path to the program, argv[1] is the first parameter, ...
-    // argc is the number of strings in the array argv
-    // These are passed to the application as command line arguments
-    // Return value should be EXIT_FAILURE if the application exited with any form of error, or EXIT_SUCCESS otherwise
+        int main(int argc, char* argv[])
+        {
+            // argv is an array of strings, where argv[0] is the path to the program, argv[1] is the first parameter, ...
+            // argc is the number of strings in the array argv
+            // These are passed to the application as command line arguments
+            // Return value should be EXIT_FAILURE if the application exited with any form of error, or EXIT_SUCCESS otherwise
 
-    if (argc == 3) {
-        //Welcome message
-    }
-        cout << "TaskA (c)2024" << endl;
-    
-        //BASIC EXAMPLE: Get parameters for the simple case
+            if (argc == 3) {
+                //Welcome message
+                cerr << "usage: task a <filename> <search term> [-regex]" << endl;
+                return EXIT_FAILURE;
+            }
+            //   cout << "TaskA (c)2024" << endl;
 
-        //my research keeps saying this part is not right. 
-        string fileName = argv[1];
-        string searchString = argv[2];
-        bool useRegex = false;
+               //BASIC EXAMPLE: Get parameters for the simple case
+
+               //my research keeps saying this part is not right. but updated
+            string fileName = argv[1];
+            string searchString = argv[2];
+            bool useRegex = findArg(argc, argv. "-regex");
+
+            fileSearcher fileSearcher(fileName, SearchTerm, useRegex);
+            fileSearcher.searchFile();
+
+            double matchPercentage = fileSearcher.getMatchPercentage();
+            cout << "total matches: " << fileSearcher.getTotalMatches() << "out of" << matchPercentage << "words (" << matchPercentage << "%" << endl;
+
+            CSVLogger logger;
+            logger.appendToCSV(fileName, searchTerm, matchPercentage);
+
+            return EXIT_SUCCESS;
+        }
+
 
         // FOR REGEX
-        if (findArg(argc, argv, "-regex")) {
-            useRegex = true;
-        }
+      //  if (findArg(argc, argv, "-regex")) {
+      //      useRegex = true;
+      //  }
         //above checs
 
         //Confirm
-        cout << "TaskA " << fileName << " " << searchString << endl;
+   //     cout << "TaskA " << fileName << " " << searchString << endl;
 
         //Done
-        return EXIT_SUCCESS;
-    }
+  //      return EXIT_SUCCESS;
+  //  }
 
     //EXAMPLE: Scan command line for -regex switch
     int p = findArg(argc, argv, "-regex");
