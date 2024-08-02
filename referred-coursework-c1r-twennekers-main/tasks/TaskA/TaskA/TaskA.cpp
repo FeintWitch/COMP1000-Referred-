@@ -9,6 +9,8 @@ using namespace std;
 
 //See bottom of main
 int findArg(int argc, char* argv[], string pattern);
+vector<string> split(const string& str);
+void appendToCSV(const string& fileName, const string& searchString, double frequency);
 
 ///new comment now checking
 /*
@@ -52,8 +54,9 @@ int main(int argc, char* argv[])
 
     if (argc == 3) {
         //Welcome message
+    }
         cout << "TaskA (c)2024" << endl;
-
+    
         //BASIC EXAMPLE: Get parameters for the simple case
 
         //my research keeps saying this part is not right. 
@@ -143,23 +146,26 @@ int main(int argc, char* argv[])
                 ++totalMatches;
                 searchStart = matches.suffix().first;
             }
-        }
+       
         //old code 
        // while (regex_search(searchStart, fileContent.cend(), matches, searchPattern)) {
       //       cout << "match found: " << matches[0] << endl;
       //       searchStart = matches.suffix().first;
       //   }
  //    }
+    }
         catch (regex_error& e) {
             cerr << "error: Invaid expression: " << searchString << endl;
             return EXIT_FAILURE;
         }
     }
-    else {
-        while (getline(inputFile, line)) {
-            ++lineNumber;
-            vector<string> words = split(line);
-            totalWords += words.size();
+   // else {
+      //  while (getline(inputFile, line)) {
+        //    ++lineNumber;
+          //  vector<string> words = split(line);
+      //      totalWords += words.size();
+      //  }
+        } else {
 
             for (size_t i = 0; i < words.size(); ++i) {
                 if (words[i].find(searchString) != string::npos) {
@@ -182,6 +188,7 @@ int main(int argc, char* argv[])
         if (totalWords > 0) {
         double percentage = (static_cast<double>(totalMatches) / totalWords) * 100;
         cout << "total matches: " << totalMatches << " out of " << totalWords << " words (" << percentage << "%)" << endl;
+        appendToCSV(fileName, searchString, percentage);
     }
     else {
         cout << "no words found in the file" << endl;
