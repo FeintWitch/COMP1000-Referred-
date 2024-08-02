@@ -67,7 +67,30 @@ public:
             return words;
         }
 
-        void searchLine(const string& line, int lineNumber){
+        void searchLine(const string& line, int lineNumber) {
+            vector<string> words = split(line);
+            for (size_T i = 0; i < words.size(); ++i) {
+                if (words[i].find(searchTerm)!= string::npos) {
+                    cout << "match found: " << words[i] << " (line: " << lineNumber << "words: " << i + 1 << ")" << endl;
+                    ++totalMatches;
+                }
+            }
+        }
+
+        void searchLineWithRegex(const string& line, int lineNumber){
+            regex searchPattern(searchString);
+            smatch matches;
+            string::const_iterator searchStart(line.cbegin());
+
+            //STARTED PUTTING BELOW CODE HERE BECAUSE IT HELPS WITH MY EYES AND SEE WHAT I AM ACTUALLY DOING
+            //AND MAKING SURE IT ORANGISED AND EASY TO READ
+
+            while (regex_search(searchStart, line.cend(), matches, searchPattern)){
+                size_t wordPos = line.find(matches[0]);
+            int wordNumber = count_if(words.begin(), words.end(), [wordPos, &line](const string& word) {
+                return line.find(word) < wordPos;
+                }) + 1;
+        
 
 //****************
 
