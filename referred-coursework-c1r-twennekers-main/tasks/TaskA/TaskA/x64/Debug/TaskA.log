@@ -1,1 +1,7 @@
-﻿
+﻿  TaskA.cpp
+C:\Users\Super\Documents\GitHub\COMP1000-Referred-\referred-coursework-c1r-twennekers-main\tasks\TaskA\TaskA\TaskA.cpp(35,43): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Super\Documents\GitHub\COMP1000-Referred-\referred-coursework-c1r-twennekers-main\tasks\TaskA\TaskA\TaskA.cpp(91,32): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+TaskA.obj : error LNK2019: unresolved external symbol "int __cdecl findArg(int,char * * const,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?findArg@@YAHHQEAPEADAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) referenced in function main
+    Hint on symbols that are defined and could potentially match:
+      "int __cdecl findArg(int,char * * const,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?findArg@@YAHHQEAPEADV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+C:\Users\Super\Documents\GitHub\COMP1000-Referred-\referred-coursework-c1r-twennekers-main\tasks\TaskA\x64\Debug\TaskA.exe : fatal error LNK1120: 1 unresolved externals

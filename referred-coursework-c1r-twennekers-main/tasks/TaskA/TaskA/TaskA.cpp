@@ -19,10 +19,10 @@ int findArg(int argc, char* argv[], const string& pattern);
 //FileSearcher handles file reading and searching
 class FileSearcher {
 public:
-    fileSearcher(const string& fileName, const string& searchString, bool useRegex) : fileName(fileName), searchString(searchString), useRegex(useRegex) {}
+    FileSearcher(const string& fileName, const string& searchString, bool useRegex) : fileName(fileName), searchString(searchString), useRegex(useRegex), totalWords(0), totalMatches(0) {}
 
     void searchFile() {
-        ifstream inputFile(filename);
+        ifstream inputFile(fileName);
         if (!inputFile) {
             cerr << "Error: File not found" << fileName << endl;
             return;
@@ -62,15 +62,15 @@ public:
             string word;
             vector<string> words;
             while (ss >> word) {
-                words.plush_back(word);
+                words.push_back(word);
             }
             return words;
         }
 
         void searchLine(const string& line, int lineNumber) {
             vector<string> words = split(line);
-            for (size_T i = 0; i < words.size(); ++i) {
-                if (words[i].find(searchTerm)!= string::npos) {
+            for (size_t i = 0; i < words.size(); ++i) {
+                if (words[i].find(searchString)!= string::npos) {
                     cout << "match found: " << words[i] << " (line: " << lineNumber << "words: " << i + 1 << ")" << endl;
                     ++totalMatches;
                 }
@@ -103,7 +103,7 @@ public:
 
 		class CSVLogger {
         public:
-            void appendToCSV(const string& filename, const string& searchString, double frequency) {
+            void appendToCSV(const string& fileName, const string& searchString, double frequency) {
                 ofstream outFile("results.csv", ios::app);
                 if (outFile.is_open()) {
                     outFile << fileName << "," << searchString << "," << frequency << "%" << endl;
@@ -119,40 +119,6 @@ public:
 
 
 
-//****************
-
-///new comment now checking
-/*
- *
- * The user can launch application as follows:
- *
- * TaskA <filename> <search term> [-regex]
- * 
- * <database file>              REQUIRED. Specifies the file to search (required). This is ALWAYS the first parameter. The file must exist in order to be searched
- * <search term>                REQUIRED. The search term as either a single word or a regular expression. 
-                                This is a single word, made up of alpha-numeric characters only.
- * -regex                       OPTIONAL. If this flag is present, then the search term is a regular expression (as opposed to a single word). 
-                                It must be a valid regex expression.
- *
- * ****************
- * *** EXAMPLES ***
- * ****************
- *
- * TaskA lorum.txt comp1000             Searches for the string comp1000 in the file lorum.txt
- * TaskA lorum.txt "^(\\d)\\d" -regex   Searches the file lorum.txt for all patterns that match the regular expression "^(\\d)\\d" 
- * TaskA lorum.txt -regex "^(\\d)\\d"   Searches the file lorum.txt for all patterns that match the regular expression "^(\\d)\\d" 
- * TaskA lorum.txt                      Error - search expression provided
- * 
- * *************
- * *** NOTES ***
- * *************
- *
- * o Try to write your code such that is can be reused in other tasks.
- * o Code should be consistently indented and commented
- * o Consider error conditions, such as missing parameters or non-existent files
-*/
-
-// I kept getting erros for fileName, searchString and useRegex. I think I am not doing it right. After looking online it's because it's in the if statement
 //I rewrote the start a little 
         int main(int argc, char* argv[])
         {
@@ -173,19 +139,32 @@ public:
                //my research keeps saying this part is not right. but updated
             string fileName = argv[1];
             string searchString = argv[2];
-            bool useRegex = findArg(argc, argv. "-regex");
+            bool useRegex = findArg(argc, argv, "-regex");
 
-            fileSearcher fileSearcher(fileName, SearchTerm, useRegex);
+            FileSearcher fileSearcher(fileName, searchString, useRegex);
             fileSearcher.searchFile();
 
             double matchPercentage = fileSearcher.getMatchPercentage();
             cout << "total matches: " << fileSearcher.getTotalMatches() << "out of" << matchPercentage << "words (" << matchPercentage << "%" << endl;
 
             CSVLogger logger;
-            logger.appendToCSV(fileName, searchTerm, matchPercentage);
+            logger.appendToCSV(fileName, searchString, matchPercentage);
 
             return EXIT_SUCCESS;
         }
+
+        // Find an argument on the command line and return the location
+        int findArg(int argc, char* argv[], string pattern)
+        {
+            for (int n = 1; n < argc; n++) {
+                string s1(argv[n]);
+                if (s1 == pattern) {
+                    return n;
+                }
+            }
+            return 0;
+        }
+
 
 
         // FOR REGEX
@@ -214,16 +193,40 @@ public:
        
      
 
-// Find an argument on the command line and return the location
-int findArg(int argc, char* argv[], string pattern)
-{
-    for (int n = 1; n < argc; n++) {
-        string s1(argv[n]);
-        if (s1 == pattern) {
-            return n;
-        }
-    }
-    return 0;
-}
 
 
+
+//****************
+
+///new comment now checking
+/*
+ *
+ * The user can launch application as follows:
+ *
+ * TaskA <filename> <search term> [-regex]
+ *
+ * <database file>              REQUIRED. Specifies the file to search (required). This is ALWAYS the first parameter. The file must exist in order to be searched
+ * <search term>                REQUIRED. The search term as either a single word or a regular expression.
+                                This is a single word, made up of alpha-numeric characters only.
+ * -regex                       OPTIONAL. If this flag is present, then the search term is a regular expression (as opposed to a single word).
+                                It must be a valid regex expression.
+ *
+ * ****************
+ * *** EXAMPLES ***
+ * ****************
+ *
+ * TaskA lorum.txt comp1000             Searches for the string comp1000 in the file lorum.txt
+ * TaskA lorum.txt "^(\\d)\\d" -regex   Searches the file lorum.txt for all patterns that match the regular expression "^(\\d)\\d"
+ * TaskA lorum.txt -regex "^(\\d)\\d"   Searches the file lorum.txt for all patterns that match the regular expression "^(\\d)\\d"
+ * TaskA lorum.txt                      Error - search expression provided
+ *
+ * *************
+ * *** NOTES ***
+ * *************
+ *
+ * o Try to write your code such that is can be reused in other tasks.
+ * o Code should be consistently indented and commented
+ * o Consider error conditions, such as missing parameters or non-existent files
+*/
+
+// I kept getting erros for fileName, searchString and useRegex. I think I am not doing it right. After looking online it's because it's in the if statement
