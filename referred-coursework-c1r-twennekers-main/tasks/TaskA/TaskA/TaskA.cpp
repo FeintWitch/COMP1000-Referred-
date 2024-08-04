@@ -32,7 +32,7 @@ public:
         int lineNumber = 0;
         while (getline(inputFile, line)) {
             ++lineNumber;
-            totalWords += split(line).size();
+            totalWords += static_cast<int>(split(line).size());
             if (useRegex) {
                 searchLineWithRegex(line, lineNumber);
             }
@@ -88,9 +88,9 @@ public:
             while (regex_search(searchStart, line.cend(), matches, searchPattern)) {
                 size_t wordPos = line.find(matches[0]);
                 vector <string> words = split(line);
-                int wordNumber = count_if(words.begin(), words.end(), [wordPos, &line](const string& word) {
+                int wordNumber = static_cast<int>(count_if(words.begin(), words.end(), [wordPos, &line](const string& word) {
                     return line.find(word) < wordPos;
-                    }) + 1;
+                    })) + 1;
 
                 cout << "match found: " << matches[0]
                     << "(line: " << lineNumber << ", word: " << wordNumber << ")" << endl;
@@ -115,6 +115,7 @@ public:
             }
             };
 
+
         //// next we are moving to the section which will be reworked
 
 
@@ -127,7 +128,7 @@ public:
             // These are passed to the application as command line arguments
             // Return value should be EXIT_FAILURE if the application exited with any form of error, or EXIT_SUCCESS otherwise
 
-            if (argc == 3) {
+            if (argc < 3) {
                 //Welcome message
                 cerr << "usage: task a <filename> <search term> [-regex]" << endl;
                 return EXIT_FAILURE;
@@ -139,7 +140,7 @@ public:
                //my research keeps saying this part is not right. but updated
             string fileName = argv[1];
             string searchString = argv[2];
-            bool useRegex = findArg(argc, argv, "-regex");
+            bool useRegex = (findArg(argc, argv, "-regex")!=0);
 
             FileSearcher fileSearcher(fileName, searchString, useRegex);
             fileSearcher.searchFile();
@@ -154,7 +155,7 @@ public:
         }
 
         // Find an argument on the command line and return the location
-        int findArg(int argc, char* argv[], string pattern)
+        int findArg(int argc, char* argv[],const string& pattern)
         {
             for (int n = 1; n < argc; n++) {
                 string s1(argv[n]);
