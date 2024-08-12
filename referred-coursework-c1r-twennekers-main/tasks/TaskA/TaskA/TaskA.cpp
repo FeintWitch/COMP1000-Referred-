@@ -31,6 +31,7 @@ public:
         string line;
         int lineNumber = 0;
         while (getline(inputFile, line)) {
+            cout << "line: " << lineNumber << endl;
             ++lineNumber;
             totalWords += static_cast<int>(split(line).size());
             if (useRegex) {
