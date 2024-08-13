@@ -58,17 +58,30 @@ public:
                 matchingLines.append(line);
         }
     }
+    file.close();
+    return true;
+}
+void displayResults() const{
+    qDebug()<< "Search results for term: " << searchTerm;
+    for (const QString& line : matchingLines){
+        qDebug()<< line;
+}
+
+  double MatchPercentage() =
+        (totalWords > 0) ? (static_cast<double>(totalMatches) / totalWords) * 100 : 0;
+        qDebug() << "total matches: " << totalMatches;
+        qDebug()<< "total words: " << totalWords;
+        qDebug() << "total percentage:  " << MatchPercentage << "%";
+}
+
+void saveResults(const QString& outputFileName) const {
+    QFile outFile(outputFileName);
+    if (outFile.open(QIODevice::WriteOnly | QIODevice::Text)){
+        QTextStream out(&outFile);
+
+}
 
 
-
-
-
-    double getMatchPercentage() {
-        return(totalWords > 0) ? (static_cast<double>(totalMatches) / totalWords) * 100 : 0;
-    }
-    const string& getFileName() const { return fileName; }
-    const string& getSearchTerm() const { return searchString; }
-    int getTotalMatches() const { return totalMatches; }
 
 private:
     string fileName;
@@ -96,6 +109,7 @@ private:
             }
         }
     }
+
 
     void searchLineWithRegex(const string& line, int lineNumber) {
         regex searchPattern(searchString);
