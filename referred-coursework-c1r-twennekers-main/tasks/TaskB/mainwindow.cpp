@@ -1,29 +1,27 @@
-#include "mainwindow.h"
-#include "./ui_mainwindow.h"
+//#include "mainwindow.h"
+//#include "./ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
-    ui->setupUi(this);
-}
+//MainWindow::MainWindow(QWidget *parent)
+  //  : QMainWindow(parent)
+   // , ui(new Ui::MainWindow)
+//{
+  //  ui->setupUi(this);
+//}
 
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
+//MainWindow::~MainWindow()
+//{
+  ///  delete ui;
+//}
 
 //************
 //This section is from task a. Going to rework this code for task b!
 ///*********
 
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <sstream>
-#include <regex>
-#include <map>
-#include <string>
+#include <QCoreApplication>
+#include <QFile>
+#include <QTextStream>
+#include <QDebug>
+#include <QStringList>
 using namespace std;
 
 ///****************
