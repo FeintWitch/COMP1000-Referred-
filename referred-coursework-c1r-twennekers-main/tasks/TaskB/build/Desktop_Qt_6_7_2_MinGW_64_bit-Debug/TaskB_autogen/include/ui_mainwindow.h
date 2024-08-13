@@ -21,6 +21,7 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -39,6 +40,7 @@ public:
     QLineEdit *lineEdit;
     QCheckBox *checkBox;
     QPushButton *pushButton;
+    QTextBrowser *resultsTextEdit;
     QTextEdit *textEdit;
     QMenuBar *menubar;
     QMenu *menuFile;
@@ -82,6 +84,11 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
+        resultsTextEdit = new QTextBrowser(centralwidget);
+        resultsTextEdit->setObjectName("resultsTextEdit");
+
+        verticalLayout->addWidget(resultsTextEdit);
+
         textEdit = new QTextEdit(centralwidget);
         textEdit->setObjectName("textEdit");
 
@@ -90,7 +97,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 21));
+        menubar->setGeometry(QRect(0, 0, 800, 17));
         menuFile = new QMenu(menubar);
         menuFile->setObjectName("menuFile");
         MainWindow->setMenuBar(menubar);

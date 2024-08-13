@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QProcess>
 #include <QDebug>
+#include <qforeach.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent) , ui(new Ui::MainWindow)
@@ -67,7 +68,7 @@ void MainWindow::performSearch(const QString &searchTerm)
     int totalWords= 0;
 
     foreach (const QString &line, lines){
-        QStringList words = line.split(QRegExp("\s+"), Qt::SkipEmptyParts);
+        QStringList words = line.split(QRegExp("\n+"), Qt::SkipEmptyParts);
         totalWords += words.size();
 
         foreach (const, QString &words, words) {

@@ -1,5 +1,6 @@
 C:/Users/Super/Documents/GitHub/COMP1000-Referred-/referred-coursework-c1r-twennekers-main/tasks/TaskB/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/TaskB_autogen/EWIEGA46WW/moc_mainwindow.cpp: C:/Users/Super/Documents/GitHub/COMP1000-Referred-/referred-coursework-c1r-twennekers-main/tasks/TaskB/mainwindow.h \
   C:/Users/Super/Documents/GitHub/COMP1000-Referred-/referred-coursework-c1r-twennekers-main/tasks/TaskB/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/TaskB_autogen/moc_predefs.h \
+  C:/Qt/6.7.2/mingw_64/include/QtCore/QString \
   C:/Qt/6.7.2/mingw_64/include/QtCore/q20functional.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/q20memory.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/q20type_traits.h \
