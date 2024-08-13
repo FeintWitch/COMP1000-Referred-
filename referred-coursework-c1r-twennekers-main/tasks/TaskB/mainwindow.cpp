@@ -78,17 +78,35 @@ void saveResults(const QString& outputFileName) const {
     QFile outFile(outputFileName);
     if (outFile.open(QIODevice::WriteOnly | QIODevice::Text)){
         QTextStream out(&outFile);
+        out << "search results for: " << searchTerm <<"\n";
+        for (const QString& line : matchingLines){
+            out<< line<< "\n";
+        }
+        double matchPercentage = (totalWords > 0)? (static_cast<double>(totalMatches)/totalWords)*100:0;
 
+        out << "Total matches: " << totalMatches << "\n";
+        out << "Total words: " << totalWords << "\n";
+        out << "match percentage: " << matchPercentage << "%\n";
+        outFile.close();
+        qDebug() << "results saved to" << outputFileName;
+    }else {
+        qDebug() << "file could not open" << outputFileName << "for writing";
+    }
 }
 
-
-
 private:
-    string fileName;
-    string searchString;
-    bool useRegex;
+    QString fileName;
+    QString searchString;
+    QStringList lines;
+    QStringList matchingLines;
     int totalWords;
     int totalMatches;
+
+    };
+
+    int main(int argc, char *argv[]){
+        QCoreApplication a(argc, argv);
+    }
 
     vector<string> split(const string& str) {
         stringstream ss(str);
