@@ -80,3 +80,32 @@ void MainWindow::performSearch(const QString &searchTerm)
         }
     }
 }
+if (totalWords > 0){
+    double matchPercentage = (static_cast<double>(totalMatches)/totalwords) * 100;
+    ui->resultsTextEdit->append(QString("total matches %1 out of of %2 words (%3%)")
+                                .arg(totalMatches)
+                                .arg(totalWords)
+                                .arg(matchPercentage,0,'f',2));
+} else
+{
+    ui->resultsTextEdit->append("no match");
+}
+}
+
+///Section below allows to save
+///
+///********
+
+void MainWindow:: saveResultsToFile(const QString &fileName)
+{
+    QFile outFile(fileName);
+    if (!outFile.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append)){
+        ui->resultsTextEdit->append("error to open file");
+        return;
+}
+    QTextStream out(&outFile);
+out << ui->resultsTextEdit->toPlainText();
+    outFile.close();
+
+ui->resultsTextEdit->append("results save to " + fileName);
+}
