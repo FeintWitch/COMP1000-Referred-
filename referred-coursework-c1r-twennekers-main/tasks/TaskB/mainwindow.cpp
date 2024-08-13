@@ -36,30 +36,32 @@ int findArg(int argc, char* argv[], const string& pattern);
 //FileSearcher handles file reading and searching
 class FileSearcher {
 public:
-    FileSearcher(const string& fileName, const string& searchString, bool useRegex) : fileName(fileName), searchString(searchString), useRegex(useRegex), totalWords(0), totalMatches(0) {}
+    FileSearcher(const QString& fileName, const QString& searchTerm) : fileName(fileName), searchTerm(searchTerm), totalWords(0), totalMatches(0){}
 
-    void searchFile() {
-        ifstream inputFile(fileName);
-        if (!inputFile) {
-            cerr << "Error: File not found" << fileName << endl;
-            return;
-        }
 
-        string line;
-        int lineNumber = 0;
-        while (getline(inputFile, line)) {
-            cout << "line: " << lineNumber << endl;
-            ++lineNumber;
-            totalWords += static_cast<int>(split(line).size());
-            if (useRegex) {
-                searchLineWithRegex(line, lineNumber);
-            }
-            else {
-                searchLine(line, lineNumber);
-
-            }
+    bool readFile(){
+        QFile file(fileName);
+            if (!file.open(QIODevice::ReadOnly | QIODevice::Text )){
+            qDebug() << "couldn't open file" << fileName;
         }
     }
+
+    QTextStream in(&file);
+    while(!in.atEnd()){
+        QString line = in.readLine();
+        lines.append(line);
+        QStringList words = line.split(QRegularExpression("\\w+"), QT::SkipEmptyParts);
+        totalWords += words.size();
+        for (const QString& word : words);
+        if(word.contains(searchTerm, QT::CaseInsensitive)){
+            totalMatches++
+                matchingLines.append(line);
+        }
+    }
+
+
+
+
 
     double getMatchPercentage() {
         return(totalWords > 0) ? (static_cast<double>(totalMatches) / totalWords) * 100 : 0;
