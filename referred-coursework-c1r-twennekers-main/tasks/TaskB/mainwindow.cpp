@@ -6,6 +6,7 @@
 #include <QProcess>
 #include <QDebug>
 #include <qforeach.h>
+#include <QRegularExpression>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent) , ui(new Ui::MainWindow)
@@ -18,6 +19,11 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::on_searchButton_clicked()
+{
+    QString searchTerm = ui->searchLineEdit->text();
+    performSearch(searchTerm);
+}
 void MainWindow::on_openFileButton_clicked()
 {
     QString fileName = "computing.txt";
@@ -38,13 +44,13 @@ void MainWindow::on_saveResultsButton_clicked()
 ///********
 bool MainWindow::openAndReadFile(const QString &FileName)
 {
-    QFile file(fileName);
+    QFile file(FileName);
     if(!file.exists()){
-        ui->resultsTextEdit->append(fileName + "not exist");
+        ui->resultsTextEdit->append(FileName + "not exist");
         return false;
     }
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        ui->resultsTextEdit->append("could not open" + fileName);
+        ui->resultsTextEdit->append("could not open" + FileName);
         return false;
     }
 
@@ -67,22 +73,23 @@ void MainWindow::performSearch(const QString &searchTerm)
     int totalMatches= 0 ;
     int totalWords= 0;
 
+    QRegularExpression regex("\\s+");
+
     foreach (const QString &line, lines){
-        QStringList words = line.split(QRegExp("\n+"), Qt::SkipEmptyParts);
+        QStringList words = line.split(regex, Qt::SkipEmptyParts);
         totalWords += words.size();
 
-        foreach (const, QString &words, words) {
+        foreach (const QString &word, words) {
             if(word.contains(searchTerm,Qt::CaseInsensitive)){
                 totalMatches++;
                 ui->resultsTextEdit->append("match found: " + word + " in line: " + line);
             }
 
-
         }
     }
-}
+
 if (totalWords > 0){
-    double matchPercentage = (static_cast<double>(totalMatches)/totalwords) * 100;
+    double matchPercentage = (static_cast<double>(totalMatches)/totalWords) * 100;
     ui->resultsTextEdit->append(QString("total matches %1 out of of %2 words (%3%)")
                                 .arg(totalMatches)
                                 .arg(totalWords)

@@ -39,7 +39,7 @@ public:
     QLabel *label;
     QLineEdit *lineEdit;
     QCheckBox *checkBox;
-    QPushButton *pushButton;
+    QPushButton *searchButton;
     QTextBrowser *resultsTextEdit;
     QTextEdit *textEdit;
     QMenuBar *menubar;
@@ -76,10 +76,10 @@ public:
 
         horizontalLayout->addWidget(checkBox);
 
-        pushButton = new QPushButton(centralwidget);
-        pushButton->setObjectName("pushButton");
+        searchButton = new QPushButton(centralwidget);
+        searchButton->setObjectName("searchButton");
 
-        horizontalLayout->addWidget(pushButton);
+        horizontalLayout->addWidget(searchButton);
 
 
         verticalLayout->addLayout(horizontalLayout);
@@ -121,7 +121,7 @@ public:
         actionExit->setText(QCoreApplication::translate("MainWindow", "Exit", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "Search Term", nullptr));
         checkBox->setText(QCoreApplication::translate("MainWindow", "Regex", nullptr));
-        pushButton->setText(QCoreApplication::translate("MainWindow", "Search", nullptr));
+        searchButton->setText(QCoreApplication::translate("MainWindow", "Search", nullptr));
         menuFile->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
     } // retranslateUi
 
