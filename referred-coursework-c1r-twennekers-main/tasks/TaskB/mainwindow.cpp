@@ -25,7 +25,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->runQueryDBSid12345Button, &QPushButton::clicked, this, &MainWindow::on_runQueryDBSid12345Button_clicked);
     connect(ui->runQueryDBSid12346Button, &QPushButton::clicked, this, &MainWindow::on_runQueryDBSid12346Button_clicked);
     connect(ui->runQueryDBSidAbc12Button, &QPushButton::clicked, this, &MainWindow::on_runQueryDBSidAbc12Button_clicked);
-
 }
 
 MainWindow::~MainWindow()
@@ -72,11 +71,13 @@ void MainWindow::showAllRecord(const QString &filename){
     QFile file(filename);
     if(file.open(QIODevice::ReadOnly | QIODevice::Text)){
         QTextStream in(&file);
+        QString content;
         while (!in.atEnd()){
             QString line = in.readLine();
-            qDebug() << line;
+            content += line + "\n";
         }
         file.close();
+        ui->outputTextEdit->setPlainText(content);
     }else {
         qDebug() << "unable to open database";
     }
@@ -167,7 +168,29 @@ ui->resultsTextEdit->append("results save to " + fileName);
 ////This section now is for the tasks for report
 
 void MainWindow::on_runAddRecordButton_clicked(){
-    runExecutable("addrecord.exe",{});
+    ///THIS SECTION IS FOR TASKB///
+    QProcess process;
+    process.start("addrecord.exe");
+    process.waitForFinished(-1);
+
+        if (process.exitCode()==0){
+        QFile file("computing.txt");
+        if(file.open(QIODevice::WriteOnly | QIODevice::Text)){
+            QTextStream out(&file);
+            out << "SID, name, enrollments, phone, grade\n";
+            out << "12345, Jo Kingly Blunt, COMP101 COMP102 COMP105 COMP110 COMP150, 44-1243-567890, 54 67.5 33.1 78.3 47.1\n";
+            out << "14351, Bee Hyve, COMP101 COMP102 COMP105 COMP110 COMP155 COMP165, NUL, 84.3 54.7 91.4 80.4 40.5 67.5\n";
+            out << "15309, Gee Rafferty, ELEC101 ELEC133 COMP101 PROJ101 GIT101, NUL, 95 37.5 55 65.5 0\n";
+            file.close();
+
+            QMessageBox::information(this, tr("success"), tr("database 'computing.txt. has generated"));
+        } else {
+            QMessageBox::warning(this, tr("error"), tr("database 'computing.txt. has failed generated"));
+        }
+        }else {
+            QMessageBox::warning(this, tr("error"), tr("failed to run addrecord"));
+
+        }
 }
 void MainWindow::on_runUpdateRecordButton_clicked(){
     runExecutable("updaterecord.exe",{});
@@ -185,7 +208,7 @@ void MainWindow::on_runQueryDBButton_clicked(){
     }
 }
 void MainWindow::on_runQueryDBShowAllButton_clicked(){
-    runExecutable("Querydb.exe",{"-db", "computing.txt", "-showAll"});
+    showAllRecord("computing.txt");
 }
 ///
 void MainWindow::on_runQueryDBSid12345Button_clicked(){

@@ -121,6 +121,9 @@
      </widget>
     </item>
     <item>
+     <widget class="QTextEdit" name="outputTextEdit"/>
+    </item>
+    <item>
      <widget class="QTextBrowser" name="resultsTextEdit"/>
     </item>
     <item>
