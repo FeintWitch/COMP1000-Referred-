@@ -122,3 +122,18 @@ out << ui->resultsTextEdit->toPlainText();
 
 ui->resultsTextEdit->append("results save to " + fileName);
 }
+/////***************************************************
+////This section now is for the tasks for report
+
+void MainWindow::on_runAddRecordButton_clicked(){
+    runExecutable("addrecord.exe",{});
+}
+void MainWindow::on_runUpdateRecordButton_clicked(){
+    runExecutable("updaterecord.exe",{});
+}
+void MainWindow::on_runQueryDBButton_clicked(){
+    runExecutable("querydb.exe");
+}
+void MainWindow::on_runQueryDBShowAllButton_clicked(){
+    runExecutable("Querydb.exe",{"-db", "computing.txt", "-showAll"});
+}

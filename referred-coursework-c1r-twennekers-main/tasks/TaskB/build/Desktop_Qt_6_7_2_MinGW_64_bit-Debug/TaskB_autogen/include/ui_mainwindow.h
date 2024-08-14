@@ -43,6 +43,7 @@ public:
     QPushButton *openFileButton;
     QPushButton *saveResultsButton;
     QPushButton *pushButton_3;
+    QLineEdit *searchLineEdit;
     QTextBrowser *resultsTextEdit;
     QTextEdit *textEdit;
     QMenuBar *menubar;
@@ -101,6 +102,11 @@ public:
         pushButton_3->setObjectName("pushButton_3");
 
         verticalLayout->addWidget(pushButton_3);
+
+        searchLineEdit = new QLineEdit(centralwidget);
+        searchLineEdit->setObjectName("searchLineEdit");
+
+        verticalLayout->addWidget(searchLineEdit);
 
         resultsTextEdit = new QTextBrowser(centralwidget);
         resultsTextEdit->setObjectName("resultsTextEdit");
