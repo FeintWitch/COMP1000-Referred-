@@ -17,11 +17,15 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->openFileButton, &QPushButton::clicked, this, &MainWindow::on_openFileButton_clicked);
     connect(ui->searchButton, &QPushButton::clicked, this, &MainWindow::on_searchButton_clicked);
     connect(ui->saveResultsButton, &QPushButton::clicked, this, &MainWindow::on_saveResultsButton_clicked);
-    //the buttons for tasks
+    //the buttons for task a
     connect(ui->runAddRecordButton, &QPushButton::clicked, this, &MainWindow::on_runAddRecordButton_clicked);
     connect(ui->runUpdateRecordButton, &QPushButton::clicked, this, &MainWindow::on_runUpdateRecordButton_clicked);
     connect(ui->runQueryDBButton, &QPushButton::clicked, this, &MainWindow::on_runQueryDBButton_clicked);
     connect(ui->runQueryDBShowAllButton,& QPushButton::clicked, this, &MainWindow::on_runQueryDBShowAllButton_clicked);
+    connect(ui->runQueryDBSid12345Button, &QPushButton::clicked, this, &MainWindow::on_runQueryDBSid12345Button_clicked);
+    connect(ui->runQueryDBSid12346Button, &QPushButton::clicked, this, &MainWindow::on_runQueryDBSid12346Button_clicked);
+    connect(ui->runQueryDBSidAbc12Button, &QPushButton::clicked, this, &MainWindow::on_runQueryDBSidAbc12Button_clicked);
+
 
 
 
@@ -145,8 +149,20 @@ void MainWindow::on_runQueryDBButton_clicked(){
 void MainWindow::on_runQueryDBShowAllButton_clicked(){
     runExecutable("Querydb.exe",{"-db", "computing.txt", "-showAll"});
 }
+///
+void MainWindow::on_runQueryDBSid12345Button_clicked(){
+    runExecutable("querydb.exe",{"-db", "computing,txt", "-sid", "12345"});
+}
+void MainWindow::on_runQueryDBSide12346_clicked(){
+    runExecutable("querydb.exe",{"-db", "computing.txt","-sid", "12346"});
+    runExecutable("querydb.exe",{"-db", "computing.txt","-sid", "12346", "-n"});
+    runExecutable("querydb.exe",{"-db", "computing.txt","-sid", "12346", "-g"});
+    runExecutable("querydb.exe",{"-db", "computing.txt","-sid", "12346", "-p"});
+}
 
-
+void MainWindow::on_runQueryDBSidAbc12Button_clicked(){
+    runExecutable("querydb.exe",{"-db", "computing.txt", "-sid", "abc12"});
+}
 void MainWindow::runExecutable(const QString &program, const QStringList &arguments)
 {
     QProcess *process = new QProcess(this);

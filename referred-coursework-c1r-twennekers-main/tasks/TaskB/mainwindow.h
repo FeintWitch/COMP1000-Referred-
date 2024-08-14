@@ -29,6 +29,10 @@ private slots:
     void on_runUpdateRecordButton_clicked();
     void on_runQueryDBShowAllButton_clicked();
     void on_runQueryDBButton_clicked();
+    void on_runQueryDBSid12345Button_clicked();
+    void on_runQueryDBSid12346Button_clicked();
+    void on_runQueryDBSidAbc12Button_clicked();
+
 private:
     Ui::MainWindow *ui;
     QString fileContent;

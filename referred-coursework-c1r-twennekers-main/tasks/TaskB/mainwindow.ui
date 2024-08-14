@@ -100,9 +100,23 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_5">
+     <widget class="QPushButton" name="runQueryDBSid12345Button">
       <property name="text">
-       <string>PushButton</string>
+       <string>runQueryDBSid12345Button</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="runQueryDBSid12346Button">
+      <property name="text">
+       <string>runQueryDBSid12346Button</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="runQueryDBSidAbc12Button">
+      <property name="text">
+       <string>runQueryDBSidAbc12Button</string>
       </property>
      </widget>
     </item>
