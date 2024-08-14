@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->openFileButton, &QPushButton::clicked, this, &MainWindow::on_openFileButton_clicked);
     connect(ui->searchButton, &QPushButton::clicked, this, &MainWindow::on_searchButton_clicked);
     connect(ui->saveResultsButton, &QPushButton::clicked, this, &MainWindow::on_saveResultsButton_clicked);
+    //the buttons for tasks
 }
 
 MainWindow::~MainWindow()

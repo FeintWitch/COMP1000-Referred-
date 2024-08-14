@@ -68,6 +68,41 @@
      <widget class="QLineEdit" name="searchLineEdit"/>
     </item>
     <item>
+     <widget class="QPushButton" name="runAddRecordButton">
+      <property name="text">
+       <string>runAddRecord</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="runUpdateRecordButton">
+      <property name="text">
+       <string>runUpdateRecord</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="runQueryDBButton">
+      <property name="text">
+       <string>runQueryDB</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="runQueryDBShowAllButton">
+      <property name="text">
+       <string>runQueryDBShowAll</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_5">
+      <property name="text">
+       <string>PushButton</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QTextBrowser" name="resultsTextEdit"/>
     </item>
     <item>
