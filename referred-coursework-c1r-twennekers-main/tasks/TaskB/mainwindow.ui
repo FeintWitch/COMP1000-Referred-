@@ -65,7 +65,11 @@
      </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="searchLineEdit"/>
+     <widget class="QLineEdit" name="searchLineEdit">
+      <property name="text">
+       <string>searchLineEdit</string>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="QPushButton" name="runAddRecordButton">

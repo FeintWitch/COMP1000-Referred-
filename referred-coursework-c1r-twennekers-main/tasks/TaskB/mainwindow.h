@@ -25,7 +25,7 @@ private slots:
     /// **********
     /// Below is for additonal buttons
     ///
-    void on_runAddRecordButton_clciked();
+    void on_runAddRecordButton_clicked();
     void on_runUpdateRecordButton_clicked();
     void on_runQueryDBShowAllButton_clicked();
     void on_runQueryDBButton_clicked();
@@ -33,6 +33,7 @@ private:
     Ui::MainWindow *ui;
     QString fileContent;
 
+    void runExecutable(const QString &program, const QStringList &arguments);
     bool openAndReadFile(const QString &fileName);
     void performSearch(const QString &searchTerm);
     void saveResultsToFile(const QString &fileName);
