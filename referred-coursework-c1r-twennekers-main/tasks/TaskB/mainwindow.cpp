@@ -18,10 +18,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->searchButton, &QPushButton::clicked, this, &MainWindow::on_searchButton_clicked);
     connect(ui->saveResultsButton, &QPushButton::clicked, this, &MainWindow::on_saveResultsButton_clicked);
     //the buttons for tasks
-    connect(ui->runAddRecordButton,&QPushButton::clicked, this, &MainWindow::runAddRecordButton);
-    connect(ui->runUpdateRecordButton,&QPushButton::clicked, this, &MainWindow::runUpdateRecordButton);
-    connect(ui->runQueryDBButton,&QPushButton::clicked, this, &MainWindow::runQueryDBButton);
-    connect(ui->runQueryDBShowAllButton,&QPushButton::clicked, this, &MainWindow::runQueryDBShowAllButton);
+    connect(ui->runAddRecordButton, &QPushButton::clicked, this, &MainWindow::on_runAddRecordButton_clicked);
+    connect(ui->runUpdateRecordButton, &QPushButton::clicked, this, &MainWindow::on_runUpdateRecordButton_clicked);
+    connect(ui->runQueryDBButton, &QPushButton::clicked, this, &MainWindow::on_runQueryDBButton_clicked);
+    connect(ui->runQueryDBShowAllButton,& QPushButton::clicked, this, &MainWindow::on_runQueryDBShowAllButton_clicked);
 
 
 
@@ -140,7 +140,7 @@ void MainWindow::on_runUpdateRecordButton_clicked(){
     runExecutable("updaterecord.exe",{});
 }
 void MainWindow::on_runQueryDBButton_clicked(){
-    runExecutable("querydb.exe");
+    runExecutable("querydb.exe",{});
 }
 void MainWindow::on_runQueryDBShowAllButton_clicked(){
     runExecutable("Querydb.exe",{"-db", "computing.txt", "-showAll"});
