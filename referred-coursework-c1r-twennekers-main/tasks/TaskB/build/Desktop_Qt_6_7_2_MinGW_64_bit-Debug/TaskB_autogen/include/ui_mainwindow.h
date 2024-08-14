@@ -40,6 +40,9 @@ public:
     QLineEdit *lineEdit;
     QCheckBox *checkBox;
     QPushButton *searchButton;
+    QPushButton *openFileButton;
+    QPushButton *saveResultsButton;
+    QPushButton *pushButton_3;
     QTextBrowser *resultsTextEdit;
     QTextEdit *textEdit;
     QMenuBar *menubar;
@@ -84,6 +87,21 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
+        openFileButton = new QPushButton(centralwidget);
+        openFileButton->setObjectName("openFileButton");
+
+        verticalLayout->addWidget(openFileButton);
+
+        saveResultsButton = new QPushButton(centralwidget);
+        saveResultsButton->setObjectName("saveResultsButton");
+
+        verticalLayout->addWidget(saveResultsButton);
+
+        pushButton_3 = new QPushButton(centralwidget);
+        pushButton_3->setObjectName("pushButton_3");
+
+        verticalLayout->addWidget(pushButton_3);
+
         resultsTextEdit = new QTextBrowser(centralwidget);
         resultsTextEdit->setObjectName("resultsTextEdit");
 
@@ -122,6 +140,9 @@ public:
         label->setText(QCoreApplication::translate("MainWindow", "Search Term", nullptr));
         checkBox->setText(QCoreApplication::translate("MainWindow", "Regex", nullptr));
         searchButton->setText(QCoreApplication::translate("MainWindow", "Search", nullptr));
+        openFileButton->setText(QCoreApplication::translate("MainWindow", "open file", nullptr));
+        saveResultsButton->setText(QCoreApplication::translate("MainWindow", "save", nullptr));
+        pushButton_3->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
         menuFile->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
     } // retranslateUi
 

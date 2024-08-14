@@ -12,6 +12,11 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent) , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    //the buttons
+    connect(ui->openFileButton, &QPushButton::clicked, this, &MainWindow::on_openFileButton_clicked);
+    connect(ui->searchButton, &QPushButton::clicked, this, &MainWindow::on_searchButton_clicked);
+    connect(ui->saveResultsButton, &QPushButton::clicked, this, &MainWindow::on_saveResultsButton_clicked);
 }
 
 MainWindow::~MainWindow()
