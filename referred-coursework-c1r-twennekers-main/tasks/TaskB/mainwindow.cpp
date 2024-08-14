@@ -58,6 +58,7 @@ void MainWindow::on_saveResultsButton_clicked()
 void MainWindow::generateDatabase(const QString &filename){
     QFile file(filename);
     if(file.open(QIODevice::WriteOnly | QIODevice::Text)){
+        QTextStream out(&file);
         out << "SID, name, enrollments, phone, grade\n";
         out << "12345, Jo Kingly Blunt, COMP101 COMP102 COMP105 COMP110 COMP150, 44-1243-567890, 54 67.5 33.1 78.3 47.1\n";
         out << "14351, Bee Hyve, COMP101 COMP102 COMP105 COMP110 COMP155 COMP165, NUL, 84.3 54.7 91.4 80.4 40.5 67.5\n";
@@ -178,9 +179,9 @@ void MainWindow::on_runQueryDBButton_clicked(){
 
     //the next part checks
     if(QFile::exists("computing.txt")){
-        QMessageBox::information(this, "Computing.txt database has been generated");
+        QMessageBox::information(this, tr("Success"), tr("'Computing.txt' database has been generated"));
     }else {
-        QMessageBox::warning(this, "failure");
+        QMessageBox::warning(this, tr("failure"), tr("failed to generate'computing.txt'."));
     }
 }
 void MainWindow::on_runQueryDBShowAllButton_clicked(){
