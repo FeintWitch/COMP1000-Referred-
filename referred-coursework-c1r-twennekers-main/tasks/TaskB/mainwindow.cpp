@@ -18,6 +18,13 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->searchButton, &QPushButton::clicked, this, &MainWindow::on_searchButton_clicked);
     connect(ui->saveResultsButton, &QPushButton::clicked, this, &MainWindow::on_saveResultsButton_clicked);
     //the buttons for tasks
+    connect(ui->runAddRecordButton,&QPushButton::clicked, this, &MainWindow::runAddRecordButton);
+    connect(ui->runUpdateRecordButton,&QPushButton::clicked, this, &MainWindow::runUpdateRecordButton);
+    connect(ui->runQueryDBButton,&QPushButton::clicked, this, &MainWindow::runQueryDBButton);
+    connect(ui->runQueryDBShowAllButton,&QPushButton::clicked, this, &MainWindow::runQueryDBShowAllButton);
+
+
+
 }
 
 MainWindow::~MainWindow()
@@ -137,4 +144,18 @@ void MainWindow::on_runQueryDBButton_clicked(){
 }
 void MainWindow::on_runQueryDBShowAllButton_clicked(){
     runExecutable("Querydb.exe",{"-db", "computing.txt", "-showAll"});
+}
+
+
+void MainWindow::runExecutable(const QString &program, const QStringList &arguments)
+{
+    QProcess *process = new QProcess(this);
+    process->start(program, arguments);
+
+    if (process->waitForFinished()){
+        QString output = process->readAllStandardOutput();
+        ui->resultsTextEdit->append("comand output: " + output);
+    }else {
+        ui->resultsTextEdit->append("command failed to process");
+    }
 }

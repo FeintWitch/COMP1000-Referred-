@@ -23,7 +23,12 @@ private slots:
     void on_searchButton_clicked();
     void on_saveResultsButton_clicked();
     /// **********
-
+    /// Below is for additonal buttons
+    ///
+    void on_runAddRecordButton_clciked();
+    void on_runUpdateRecordButton_clicked();
+    void on_runQueryDBShowAllButton_clicked();
+    void on_runQueryDBButton_clicked();
 private:
     Ui::MainWindow *ui;
     QString fileContent;
