@@ -41,5 +41,7 @@ private:
     bool openAndReadFile(const QString &fileName);
     void performSearch(const QString &searchTerm);
     void saveResultsToFile(const QString &fileName);
+    void generateDatabase(const QString &fileName);
+    void showAllRecord(const QString &fileName);
 };
 #endif // MAINWINDOW_H
