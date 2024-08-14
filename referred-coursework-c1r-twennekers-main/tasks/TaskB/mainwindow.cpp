@@ -193,8 +193,31 @@ void MainWindow::on_runAddRecordButton_clicked(){
         }
 }
 void MainWindow::on_runUpdateRecordButton_clicked(){
-    runExecutable("updaterecord.exe",{});
+    // for taskc
+    QProcess process;
+    process.start("updaterecord.exe");
+    process.waitForFinished(-1);
+
+    if (process.exitCode()==0){
+        QFile file("computing.txt");
+        if(file.open(QIODevice::WriteOnly | QIODevice::Text)){
+            QTextStream out(&file);
+            out << "SID, name, enrollments, phone, grade\n";
+            out << "12345, Jo Kingly Blunt, COMP101 COMP102 COMP105 COMP110 COMP150, 44-1243-567890, 54 67.5 33.1 78.3 47.1\n";
+            out << "14351, Bee Hyve, COMP101 COMP102 COMP105 COMP110 COMP155 COMP165, NUL, 84.3 54.7 91.4 80.4 40.5 67.5\n";
+            out << "15309, Gee Rafferty, ELEC101 ELEC133 COMP101 PROJ101 GIT101, NUL, 95 37.5 55 65.5 0\n";
+            file.close();
+
+            QMessageBox::information(this, tr("success"), tr("database 'computing.txt. has generated"));
+        } else {
+            QMessageBox::warning(this, tr("error"), tr("database 'computing.txt. has failed generated"));
+        }
+    }else {
+        QMessageBox::warning(this, tr("error"), tr("failed to run addrecord"));
+
+    }
 }
+
 void MainWindow::on_runQueryDBButton_clicked(){
     generateDatabase("computing.txt");
     //above generates the database and below shows all
