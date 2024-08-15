@@ -223,13 +223,25 @@ void MainWindow::on_runQueryDBButton_clicked(){
     //above generates the database and below shows all
     showAllRecord("computing.txt");
 
+    //runs test from taska
+    QProcess process;
+    QStringList arguments;
+    arguments << "-db" << "computing.txt" << "-SID" << "12345";
+    process.start("querydb.exe", arguments);
+    process.waitForFinished(-1);
+
+
     //the next part checks
-    if(QFile::exists("computing.txt")){
-        QMessageBox::information(this, tr("Success"), tr("'Computing.txt' database has been generated"));
+    if(process.exitCode()== 0)
+    {
+        QString output = process.readAllStandardOutput();
+        QMessageBox::information(this, tr("query result"), output);
     }else {
-        QMessageBox::warning(this, tr("failure"), tr("failed to generate'computing.txt'."));
+        QMessageBox::warning(this, tr("failure"), tr("failed to generate'querydv.exe'."));
     }
 }
+
+
 void MainWindow::on_runQueryDBShowAllButton_clicked(){
     showAllRecord("computing.txt");
 }
@@ -249,13 +261,23 @@ void MainWindow::on_runQueryDBSidAbc12Button_clicked(){
 }
 void MainWindow::runExecutable(const QString &program, const QStringList &arguments)
 {
-    QProcess *process = new QProcess(this);
-    process->start(program, arguments);
+    QProcess process;
+    process.start(program, arguments);
+    if (!process.waitForStarted()){
+        QMessageBox::warning(this, tr("execution error"), tr("failed to start the process"));
+        return;
+        }
+    if (!process.waitForFinished()){
+         QMessageBox::warning(this, tr("exectuion error"), tr("proccess with finished errors"));
+        return;
+    }
 
-    if (process->waitForFinished()){
-        QString output = process->readAllStandardOutput();
-        ui->resultsTextEdit->append("comand output: " + output);
-    }else {
-        ui->resultsTextEdit->append("command failed to process");
+    QString output = process.readAllStandardOutput().trimmed();
+    QString erroroutput = process.readAllStandardOutput(). trimmed();
+
+    if (!erroroutput.isEmpty()){
+        QMessageBox::warning(this, tr("error"), erroroutput);
+    } else{
+        QMessageBox::information(this, tr("query result"), output);
     }
 }
